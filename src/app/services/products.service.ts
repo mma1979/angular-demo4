@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { ProductModel } from '../models/product-model';
 
 @Injectable({
@@ -11,11 +11,12 @@ export class ProductsService {
   constructor(private http: HttpClient) { }
 
   getAll(): Observable<ProductModel[]> {
-    return this.http.get<ProductModel[]>('https://localhost:44391/products')
+    return this.http.get<ProductModel[]>('https://octaprimetech.com/products')
   }
 
+   
   createProduct(newProduct: ProductModel): Observable<ProductModel>{
-    return this.http.post<ProductModel>('https://localhost:44391/products', newProduct)
+    return this.http.post<ProductModel>('https://octaprimetech.com/products', newProduct)
   }
 }
 8
