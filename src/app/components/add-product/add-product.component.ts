@@ -1,23 +1,29 @@
 import { Component } from '@angular/core';
 import { ProductModel } from '../../models/product-model';
 import { ProductsService } from '../../services/products.service';
-import { FormsModule } from '@angular/forms';
+import { FormGroup, FormsModule, NgForm } from '@angular/forms';
 import { Route, Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-add-product',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, CommonModule],
   templateUrl: './add-product.component.html',
   styleUrl: './add-product.component.css'
 })
 export class AddProductComponent {
+[x: string]: any;
 
 newProduct: ProductModel = <ProductModel>{}
 constructor(private service: ProductsService, private router: Router){}
 
 
-addProduct() {
+addProduct(productForm: NgForm) {
+  if(productForm.invalid){
+    alert("complete requried Data")
+    return 
+  }
   this.service.createProduct(this.newProduct).subscribe({
     next: res=>{
      this.router.navigate(['/products'])
