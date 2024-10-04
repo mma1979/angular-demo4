@@ -1,3 +1,3 @@
 export const environment = {
-    ApiBaseUrl: 'https://localhost:44391'
+    ApiBaseUrl: 'http://localhost:5000/db'
 };

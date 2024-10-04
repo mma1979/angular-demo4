@@ -29,8 +29,8 @@ export class EditProductComponent {
     .subscribe({
       next: res =>{
         this.product = res;
-        this.productFrom.controls.productName.setValue(this.product.name);
-        this.productFrom.controls.productPrice.setValue(`${this.product.price}`);
+        this.productFrom.controls.productName.setValue(this.product.Name);
+        this.productFrom.controls.productPrice.setValue(`${this.product.Price}`);
       },
       error: err=> console.log(err)
     })
@@ -46,7 +46,7 @@ export class EditProductComponent {
       price : this.productFrom.controls.productPrice.getRawValue(),
     }
 
-    this.service.editProduct(this.product.id, requestBody)
+    this.service.editProduct(this.product.Id, requestBody)
     .subscribe({
       next: res=> this.router.navigate(['/products']),
       error: err=> alert(err.message)

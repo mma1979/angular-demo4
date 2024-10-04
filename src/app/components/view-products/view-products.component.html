@@ -9,15 +9,24 @@
     </ng-template>
     <ng-template pTemplate="body" let-product>
         <tr>
-            <td>{{ product.id }}</td>
-            <td>{{ product.name }}</td>
-            <td>{{ product.price }}</td>
+            <td>{{ product.Id }}</td>
+            <td>{{ product.Name }}</td>
+            <td>{{ product.Price }}</td>
             <td>
-                <button class="btn btn-warning" title="edit" (click)="gotoEditProduct(product.id)"><i class="pi pi-pencil"></i></button>
-                <button class="btn btn-danger" title="delete" (click)="deleteProduct(product.id)"><i class="pi pi-trash"></i></button>
+                <button class="btn btn-warning" title="edit" (click)="gotoEditProduct(product.Id)"><i class="pi pi-pencil"></i></button>
+                <button class="btn btn-danger" title="delete" (click)="deleteProduct(product.Id)"><i class="pi pi-trash"></i></button>
+                @if(cardStateService.isExist(product)){
+                    <button class="btn btn-danger" title="add to card" (click)="addToCard(product)"><i class="pi pi-trash"></i></button>
+                }@else{
+                    <button class="btn btn-success" title="add to card" (click)="addToCard(product)"><i class="pi pi-plus"></i></button>
+                }
             </td>
         </tr>
     </ng-template>
 </p-table>
 
-<a class="btn btn-success" [routerLink]="['/add-product']">Add New Product</a>
+<a *ngIf="isAuthenticated" class="btn btn-success" [routerLink]="['/add-product']">Add New Product</a>
+
+<button *ngIf="!isAuthenticated" class="btn btn-success" (click)="doLogin()">Login</button>
+
+<p>{{ token}}</p>

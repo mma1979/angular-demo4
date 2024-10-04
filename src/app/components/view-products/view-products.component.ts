@@ -3,11 +3,14 @@ import { ProductsService } from '../../services/products.service';
 import { ProductModel } from '../../models/product-model';
 import { TableModule } from 'primeng/table';
 import { Router, RouterModule } from '@angular/router';
+import { CardStateService } from '../../services/card-state.service';
+import { UserStateService } from '../../services/user-state.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-view-products',
   standalone: true,
-  imports: [TableModule, RouterModule],
+  imports: [TableModule, RouterModule, CommonModule],
   templateUrl: './view-products.component.html',
   styleUrl: './view-products.component.css'
 })
@@ -15,9 +18,19 @@ export class ViewProductsComponent implements OnInit {
 
 
 
+
   products: ProductModel[] = []
 
-  constructor(private service: ProductsService, private router: Router) { }
+  isAuthenticated: boolean=false;
+  token: string='';
+  constructor(private service: ProductsService, private router: Router, public cardStateService: CardStateService,
+    private userStateService: UserStateService
+  ) { 
+    this.userStateService.userToken$.subscribe(token=>{
+      this.token =token;
+      this.isAuthenticated= this.userStateService.isAuthinticated()
+    })
+  }
 
   loadData() {
     this.service.getAll()
@@ -51,4 +64,17 @@ export class ViewProductsComponent implements OnInit {
         })
     }
   }
+
+  addToCard(product: ProductModel) {
+      if(this.cardStateService.isExist(product)){
+        this.cardStateService.removeProduct(product)
+      }else{
+        this.cardStateService.addProduct(product)
+      }
+  }
+
+  doLogin() {
+    this.userStateService.login("mma1979", "P@ssw0rd");
+    }
+    
 }

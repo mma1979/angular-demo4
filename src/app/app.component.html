@@ -19,6 +19,8 @@
         <li class="nav-item">
           <a class="nav-link" [routerLink]="['offers']">Offers</a>
         </li>
+
+        <li *ngIf="count>0">{{count}}</li>
       
       </ul>
       <form class="d-flex" role="search">
