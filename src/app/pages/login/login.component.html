@@ -1,0 +1,14 @@
+<div class="alert alert-danger" *ngIf="hasError">Can not login</div>
+<form [formGroup]="form" (submit)="doLogin()">
+    <div class="from-group">
+        <label for="username">User Name</label>
+        <input type="text" class="form-control" formControlName="username">
+    </div>
+
+    <div class="from-group">
+        <label for="password">User Name</label>
+        <input type="password" class="form-control" formControlName="password">
+    </div>
+<button class="btn btn-success" type="submit">Login</button>
+    
+</form>

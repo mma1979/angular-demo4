@@ -23,6 +23,7 @@ export class ViewProductsComponent implements OnInit {
 
   isAuthenticated: boolean=false;
   token: string='';
+  isAdmin = false;
   constructor(private service: ProductsService, private router: Router, public cardStateService: CardStateService,
     private userStateService: UserStateService
   ) { 
@@ -75,6 +76,11 @@ export class ViewProductsComponent implements OnInit {
 
   doLogin() {
     this.userStateService.login("mma1979", "P@ssw0rd");
+    this.userStateService.userSubject.subscribe(token=>{
+      this.token = token;
+      this.isAdmin = this.userStateService.isAdmin();
+    })
+   
     }
     
 }

@@ -1,4 +1,4 @@
-import { HttpClient, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
 import { ProductModel } from '../models/product-model';
@@ -14,6 +14,7 @@ export class ProductsService {
   constructor(private http: HttpClient) { }
 
   getAll(): Observable<ProductModel[]> {
+    
     return this.http.get<ProductModel[]>(`${environment.ApiBaseUrl}/products`)
   }
 
